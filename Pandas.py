@@ -1,3 +1,5 @@
+import math
+
 import pandas as pd
 
 def view(s):
@@ -36,7 +38,7 @@ def get_pos(s, p):
     print('\n')
 
 def main():
-    l = ['Mate', 'Fisics', 'Programming']
+    """l = ['Mate', 'Fisics', 'Programming']
     d = {'Mat': 6.0,  'Eco': 4.5, 'Pro': 8.5}
     sl = pd.Series(data=l, dtype='string')
     dl = pd.Series(data=d)
@@ -46,7 +48,25 @@ def main():
     view(dl)
     get_pos(dl, 0)
     get_pos(dl, ['Pro', 'Eco'])
-    properties(dl)
+    properties(dl)"""
+
+    l = [
+        # chr(i) for i in range(97, 123)
+        i for i in range(1, 20)
+    ]
+
+    ls = pd.Series(l)
+    # print(ls)
+
+    # print(ls)
+    ls = ls.apply(math.log)
+
+    # print(ls[ls > 2])
+
+    print(ls[ls > 2].sort_index(ascending=False))
+
+    print('\n', ls.values)
+    # print(ls.apply(str.upper))
 
 
 if __name__ == '__main__':
