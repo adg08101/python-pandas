@@ -39,20 +39,34 @@ def main():
     df.to_excel("output.xlsx", sheet_name='Sheet_name_1')
 
     nf = panda.read_excel("output.xlsx", sheet_name='Sheet_name_1', index_col=0)
-    print(nf)
-    print(properties(nf))
+    """print(nf)
+    print(properties(nf))"""
+    d = {chr(x): 'Col ' + str(chr(x)) for x in range(ord('a'), ord('g'))}
+    r = {x: 'Row ' + str(x) for x in range(4)}
+    nf = nf.rename(columns=d, index=r)
 
-def properties(s = None):
+    # Re indexado y N/A / None eliminados
+    # Notice Row0 does not exists
+
+    # print(nf.reindex(columns=['Col c', 'Col d', 'Col e'], index=['Row 1', 'Row0']).dropna())
+
+    # print(nf.iloc[2, 1], nf.loc[('Row 1'), ('Col d')])
+
+    print(nf)
+
+    print(nf.iloc[1, :3])
+
+def properties(s=None):
     l = {
-        'info()' : '''Devuelve información (número de filas, número de columnas, índices, tipo de las columnas y'
+        'info()': '''Devuelve información (número de filas, número de columnas, índices, tipo de las columnas y'
                       memoria usado) sobre el DataFrame df.''',
-        'shape' : 'Devuelve una tupla con el número de filas y columnas del DataFrame df.',
-        'size' : 'Devuelve el número de elementos del DataFrame.',
-        'columns' : 'Devuelve una lista con los nombres de las columnas del DataFrame df.',
-        'index' : 'Devuelve una lista con los nombres de las filas del DataFrame df.',
-        'dtypes' : 'Devuelve una serie con los tipos de datos de las columnas del DataFrame df.',
-        # 'head(n)' : 'Devuelve las n primeras filas del DataFrame df.',
-        # 'tail(n)' : 'Devuelve las n últimas filas del DataFrame df.'
+        'shape': 'Devuelve una tupla con el número de filas y columnas del DataFrame df.',
+        'size': 'Devuelve el número de elementos del DataFrame.',
+        'columns': 'Devuelve una lista con los nombres de las columnas del DataFrame df.',
+        'index': 'Devuelve una lista con los nombres de las filas del DataFrame df.',
+        'dtypes': 'Devuelve una serie con los tipos de datos de las columnas del DataFrame df.',
+        'head(2)': 'Devuelve las en una serie (Ej: n = 2) primeras filas del DataFrame df.',
+        'tail(2)': 'Devuelve las en una serie (Ej: n = 2) últimas filas del DataFrame df.'
     }
 
     i = 1
@@ -63,5 +77,7 @@ def properties(s = None):
         if l[k].find('una serie') != -1 else ': Resulted\t', eval(oper))
         i += 1
         print('\n')
+
+
 if __name__ == '__main__':
     main()
