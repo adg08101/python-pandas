@@ -28,7 +28,8 @@ def properties(s = None):
 
     for k in l:
         oper = 's.' + k
-        print(str(i) + '.', l[k], ': \nResulted\n'
+        ke = list(l.keys())
+        print(str(i) + '.', str(ke[i - 1]).upper(), l[k], ': \nResulted\n'
         if l[k].find('una serie') != -1 else ': Resulted\t', eval(oper))
         i += 1
         print('\n')

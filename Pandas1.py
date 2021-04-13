@@ -1,6 +1,16 @@
 import numpy as np
 import pandas as panda
+import Pandas
 
+
+def duplicar(x):
+    return x * 2
+
+def get_r(r):
+    return {x: 'Row ' + str(x) for x in range(r)}
+
+def get_d(f, t):
+    return {chr(x): 'Col ' + str(chr(x)) for x in range(ord(f), ord(t))}
 
 def main():
     # DataFrame desde diccionario
@@ -41,8 +51,15 @@ def main():
     nf = panda.read_excel("output.xlsx", sheet_name='Sheet_name_1', index_col=0)
     """print(nf)
     print(properties(nf))"""
-    d = {chr(x): 'Col ' + str(chr(x)) for x in range(ord('a'), ord('g'))}
-    r = {x: 'Row ' + str(x) for x in range(4)}
+
+
+    """d = {chr(x): 'Col ' + str(chr(x)) for x in range(ord('a'), ord('g'))}
+    r = {x: 'Row ' + str(x) for x in range(4)}"""
+
+    d = get_d('a', 'g')
+    r = get_r(4)
+
+
     nf = nf.rename(columns=d, index=r)
 
     # Re indexado y N/A / None eliminados
@@ -52,9 +69,47 @@ def main():
 
     # print(nf.iloc[2, 1], nf.loc[('Row 1'), ('Col d')])
 
+    """print(nf)
+
+    print(nf.iloc[1, :3])"""
+
+    """print(nf.loc[['Row 2', ], ['Col a', 'Col b']], '\n')
+    print(nf.loc['Row 1'])"""
+
     print(nf)
 
-    print(nf.iloc[1, :3])
+    nf['Col g'] = [
+        np.random.randn() for i in range(4)
+    ]
+
+    print(nf)
+
+    print(nf.loc[(nf['Col g'] > 1), 'Col g'].apply(duplicar))
+
+    print(Pandas.properties(nf))
+
+    del nf['Col g']
+    nf.pop('Col f')
+
+    print(nf)
+
+    data = list({x for x in [
+        np.random.randn()
+        for _ in range(5)
+    ]
+            })
+
+    d = get_d('a', 'f')
+    print(d.values())
+
+    nf = nf.append(panda.Series(data=data, index=d.values()), ignore_index=1)
+
+    print(nf)
+
+    nf = nf.drop({x for x in range(4)})
+
+    print(nf)
+
 
 def properties(s=None):
     l = {
