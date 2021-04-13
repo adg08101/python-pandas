@@ -106,9 +106,11 @@ def main():
 
     print(nf)
 
-    nf = nf.drop({x for x in range(4)})
+    """nf = nf.drop({x for x in range(4)})
 
-    print(nf)
+    print(nf)"""
+
+    print(nf[(nf['Col a'] > 0.05) & (nf['Col d'] > 1)])
 
 
 def properties(s=None):
